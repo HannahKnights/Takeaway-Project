@@ -1,11 +1,11 @@
 class Takeaway
 
 MENU = [
-    {:name => "dish", :price => 1},
-    {:name => "dish2", :price => 1},
-    {:name => "fish", :price => 1},
-    {:name => "rish", :price => 1},
-    {:name => "7ish", :price => 1}
+    {:name => "Apple, Rhubarb and Marshmallow Crumble", :price => 4},
+    {:name => "Rhubarb and White Chocolate Mille-feuille", :price => 5},
+    {:name => "Rhubarb and Vanille Custard Panna Cotta", :price => 4.5},
+    {:name => "Ginger poached Rhubarb with Thyme Yoghurt", :price => 3},
+    {:name => "Rhubarb Sherbert", :price => 2.5}
   ]
 
   def initialize
@@ -55,6 +55,12 @@ MENU = [
     end
     total_price.inject(0) {|sum, price| sum + price}
   end
+
+  # def place_order
+  #   # @basket.flatten
+  #   # order_total == 
+
+  # end
 
 end
 
