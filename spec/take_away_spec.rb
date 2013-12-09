@@ -1,23 +1,28 @@
 require 'take_away'
+require 'rubygems'
+require 'twilio-ruby'
 
 describe Takeaway do
 
   let (:takeaway) {Takeaway.new}
 
+  let (:time) {Time.at(Date.parse('2013-12-09').to_time.to_i + 15*30*30)}
+
+  let (:basket_two_Sherberts) {2.times{takeaway.add_to_basket("Rhubarb Sherbert")}}
+
+
+
   context "menu items" do
 
     it "should have a menu" do
-      takeaway
       expect(takeaway).to have_menu
     end
 
     it "should have a list of dishes on the menu" do
-      takeaway
       expect(takeaway.dishes.first).to include "Marshmallow"
     end
 
     it "dishes should have a price" do
-      takeaway
       expect(takeaway.price("Rhubarb Sherbert")).to eq(2.50)
     end
 
@@ -26,50 +31,65 @@ describe Takeaway do
   context "Has a basket" do
 
     it "which can be empty" do
-      takeaway
       expect(takeaway.basket).to be_empty
     end
 
     it "which can store an item" do
-      takeaway
       takeaway.add_to_basket("Rhubarb Sherbert")
       expect(takeaway.basket).not_to be_empty
     end
 
     it "which can store more than one item" do
-      takeaway
-      takeaway.add_to_basket("Rhubarb Sherbert")
-      takeaway.add_to_basket("Rhubarb Sherbert")
+      basket_two_Sherberts
       expect(takeaway.basket.count).to eq(2)
     end
 
     it "which you can remove items from" do
-      takeaway
       takeaway.add_to_basket("Rhubarb Sherbert")
-      expect(takeaway.basket.count).to eq(1)
+      takeaway.add_to_basket("Rhubarb and Vanilla Custard Panna Cotta")
+      expect(takeaway.basket.count).to eq(2)
       takeaway.remove_from_basket("Rhubarb Sherbert")
-      expect(takeaway.basket.count).to eq(0)
+      expect(takeaway.basket.count).to eq(1)
     end
 
-    it "which can provide a total of its items" do
-      takeaway
-      2.times{takeaway.add_to_basket("Rhubarb Sherbert")}
+
+    it "which can provide an order total of its items" do
+      basket_two_Sherberts
       expect(takeaway.order_total).to eq(5)
     end
 
+    it "should calculate the quantities of each item in your basket" do
+      basket_two_Sherberts
+      expect(takeaway.view_order.first).to include "Rhubarb Sherbert", 2 
+    end
 
   end
 
   context "Placing an order" do
 
-    xit "should raise an error if the basket total is incorrect" do
-      takeaway.stub(:order_total) {2}
-      takeaway
-      2.times{takeaway.add_to_basket("Rhubarb Sherbert")}
-      takeaway.add_to_basket("Rhubarb and Vanille Custard Panna Cotta")
-      expect(takeaway.place_order).to raise_error
+    it "should raise an error if the order total and customer's payment don't match" do
+      basket_two_Sherberts
+      takeaway.add_to_basket("Rhubarb and Vanilla Custard Panna Cotta")
+      expect(lambda {takeaway.place_order(5)}).to raise_error "Sorry, there seems to be a problem with your order calculations" 
     end
   
+    it "should know that the order will arrive in one hour" do
+      allow(Time).to receive(:now).and_return(time)      
+      expect(takeaway.delivery_time).to eq('4:45')
+    end
+
+    it "should include the delivery time in the text message to the customer" do
+      allow(Time).to receive(:now).and_return(time)
+      expect(takeaway.delivery_message).to eq("Thanks for your The Rhu-bar order. It will be with you by 4:45. Enjoy!")
+    end
+
+
+    it "should send a text to tell the customer the order is on the way" do
+      takeaway.stub(:send_text) 
+      basket_two_Sherberts
+      takeaway.should_receive(:send_text).once
+      takeaway.place_order(5)
+    end
 
   end
 
