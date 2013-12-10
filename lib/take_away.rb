@@ -98,12 +98,12 @@ MENU = [
 
 
   def send_text
-    account_sid = 'AC6a0b7b977dcf9ca6e4bdae1f813c3374'
-    auth_token = '74611c293510da907c789373a0d1e276'
+    account_sid = ENV['TWILIO_ACCOUNT_SID']
+    auth_token = ENV['TWILIO_AUTH_TOKEN']
     @client = Twilio::REST::Client.new account_sid, auth_token
     message = @client.account.messages.create(
       :body =>"#{delivery_message}",
-      :to => "+447745578234",
+      :to => ENV['MY_PHONE_NUMBER'],
       :from => "+441772367550",)
     puts message.to
   end
