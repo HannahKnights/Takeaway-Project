@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'twilio-ruby'
 
+# Well done for writing short methods!
 
 class Takeaway
 
@@ -18,16 +19,15 @@ MENU = [
   end
 
 
-  def basket
-    @basket
-  end
+  attr_reader :basket
 
-
+  # no need for this method at all
   def has_menu?
     MENU
   end
 
-
+  # this method isn't covered by the tests and it's unclear what it does
+  # because counts isn't defined
   def count_order
     order = MENU.map do |item|
       counts[item[:name]] += 1
@@ -45,40 +45,39 @@ MENU = [
 
 
   def price(dish)
-    MENU.each do |item|
-      return item[:price] if item[:name] == dish.to_s
-    end
+    item = MENU.detect{|item| item[:name] == dish.to_s}
+    item[:price] if item
   end
 
 
   def add_to_basket(dish)
-    MENU.each do |item|
-      @basket << item if item[:name] == dish.to_s
-    end
-    @basket
+    item = MENU.detect{|item| item[:name] == dish.to_s}
+    @basket << item if item
   end
 
 
   def remove_from_basket(dish)
-    @basket.each do |item|
-      @basket.delete_if {|dessert| dessert[:name] == dish.to_s}
-    end
-    @basket
+    @basket.delete_if {|dessert| dessert[:name] == dish.to_s}
   end
 
 
   def order_total
+    # well done for using map and reduce
     @total_price = @basket.map {|dish| dish[:price]}.reduce(:+)
   end
 
 
   def view_order
-    view_order = Hash.new(0)
-    @basket.each {|dish| view_order[dish[:name]] += 1 }
-    view_order
+    @basket.inject(Hash.new {0}) do |order, dish|
+      order[dish[:name]] += 1
+      order
+    end
   end
 
 
+  # This method isn't covered by tests
+  # and it wouldn't work anyway because you have no 
+  # constant BASKET  
   def count_order
     counted = Hash.new(0)
     BASKET.each { |h| counted[h[:name]] += 1 }
@@ -93,9 +92,9 @@ MENU = [
 
 
   def delivery_message
+    # you must love Rhubarb :)
     "Thanks for your The Rhu-bar order. It will be with you by #{delivery_time}. Enjoy!"
   end
-
 
   def send_text
     account_sid = ENV['TWILIO_ACCOUNT_SID']
@@ -105,7 +104,7 @@ MENU = [
       :body =>"#{delivery_message}",
       :to => ENV['MY_PHONE_NUMBER'],
       :from => "+441772367550",)
-    puts message.to
+    puts message.to # don't print things in the code, just return them
   end
 
   def order_error
