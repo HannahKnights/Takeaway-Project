@@ -1,4 +1,4 @@
-mkdir require 'take_away'
+require 'take_away'
 require 'rubygems'
 require 'twilio-ruby'
 
@@ -14,12 +14,6 @@ describe Takeaway do
 
   context "menu items" do
 
-    # it's a bit of an overkill, don't test that it has menu
-    # because if it doesn't, other tests will fail
-    it "should have a menu" do
-      expect(takeaway).to have_menu
-    end
-
     it "should have a list of dishes on the menu" do
       expect(takeaway.dishes.first).to include "Marshmallow"
     end
@@ -30,8 +24,6 @@ describe Takeaway do
 
   end
 
-  # Well done for implementing fairly complex functionality
-  # even though it wasn't required
   context "Has a basket" do
 
     it "which can be empty" do
