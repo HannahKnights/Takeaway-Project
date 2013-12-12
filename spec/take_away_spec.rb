@@ -1,4 +1,4 @@
-require 'take_away'
+mkdir require 'take_away'
 require 'rubygems'
 require 'twilio-ruby'
 
