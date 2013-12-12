@@ -17,8 +17,8 @@ MENU = [
   end
 
 
-  def initialize
-    @basket = []
+  def initialize(basket = [])
+    @basket = basket
   end
 
 

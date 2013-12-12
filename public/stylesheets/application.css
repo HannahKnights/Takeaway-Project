@@ -1,0 +1,26 @@
+.menu {
+    font-size: 24px;
+    font-family: Helvetica;
+    color: black;
+}
+
+#basket {
+    font-size: 24px;
+    font-family: Helvetica;
+    color: black;
+}
+
+.header {
+    color: blue;
+    font-family: Helvetica;
+    text-align: center;
+}
+
+.basketform {
+    font-size: 14px;
+    font-family: Helvetica;
+    color: black;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+}

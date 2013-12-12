@@ -1,0 +1,47 @@
+<html>
+<head>
+<link href="/stylesheets/application.css" rel="stylesheet" type="text/css">
+</head>
+
+    <body>
+
+    <div class="header">R-h-u-b~a~r-b</div>
+
+    <div class="menu">
+    <table>
+    <% @menu.each do |dish| %>
+      <!-- <tr> -->
+        <td>
+          <%= dish %>
+        </td>
+      <!-- </tr> -->
+    <% end %>
+    </table>
+    </div>
+
+    <div id="basketform">
+    <form action="/" method="post">
+      <table>
+      <% @takeaway_d.each do |item| %>
+        <tr>
+          <td>
+            <input type="checkbox" name="dish" value="<%= item[:name] %>">
+            <%= item[:name] %>
+            <input type="submit" value"submit" >
+          </td>
+        </tr>
+      <% end %>
+      </table>
+    </form>
+    </div>
+    Basket
+    <ul>
+    <% @takeaway.basket.each do |item| %>
+    <li><%= item[:name] %></li>
+    <% end %>
+    </ul>
+    </div>
+  
+  </body>
+
+</html>
