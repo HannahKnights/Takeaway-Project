@@ -12,6 +12,10 @@ MENU = [
     {:name => "Rhubarb Sherbert", :price => 2.5}
   ]
 
+  def menu
+    MENU
+  end
+
 
   def initialize
     @basket = []
