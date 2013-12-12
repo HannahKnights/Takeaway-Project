@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'twilio-ruby'
 
-# Well done for writing short methods!
 
 class Takeaway
 
@@ -24,19 +23,6 @@ MENU = [
 
 
   attr_reader :basket
-
-  # no need for this method at all
-  def has_menu?
-    MENU
-  end
-
-  # this method isn't covered by the tests and it's unclear what it does
-  # because counts isn't defined
-  def count_order
-    order = MENU.map do |item|
-      counts[item[:name]] += 1
-    end
-  end
 
 
   def dishes
@@ -66,7 +52,6 @@ MENU = [
 
 
   def order_total
-    # well done for using map and reduce
     @total_price = @basket.map {|dish| dish[:price]}.reduce(:+)
   end
 
@@ -79,16 +64,6 @@ MENU = [
   end
 
 
-  # This method isn't covered by tests
-  # and it wouldn't work anyway because you have no 
-  # constant BASKET  
-  def count_order
-    counted = Hash.new(0)
-    BASKET.each { |h| counted[h[:name]] += 1 }
-    counted
-  end
-
-
   def delivery_time
     delivery_time = Time.now + (60 * 1 * 60)
     "#{delivery_time.hour}:#{delivery_time.min}"
@@ -96,7 +71,6 @@ MENU = [
 
 
   def delivery_message
-    # you must love Rhubarb :)
     "Thanks for your The Rhu-bar order. It will be with you by #{delivery_time}. Enjoy!"
   end
 
@@ -108,7 +82,7 @@ MENU = [
       :body =>"#{delivery_message}",
       :to => ENV['MY_PHONE_NUMBER'],
       :from => "+441772367550",)
-    puts message.to # don't print things in the code, just return them
+    message.to
   end
 
   def order_error
