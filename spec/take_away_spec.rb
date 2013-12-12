@@ -27,7 +27,7 @@ describe Takeaway do
   context "Has a basket" do
 
     it "which can be empty" do
-      expect(takeaway.basket).to be_empty
+      expect(Takeaway.new.basket).to be_empty
     end
 
     it "which can store an item" do
