@@ -8,12 +8,14 @@ describe Takeaway do
 
   let (:time) {Time.at(Date.parse('2013-12-09').to_time.to_i + 15*30*30)}
 
-  let (:basket_two_Sherberts) {2.times{takeaway.add_to_basket("Rhubarb Sherbert")}}
+  let (:basket_two_sherberts) {2.times{takeaway.add_to_basket("Rhubarb Sherbert")}}
 
 
 
   context "menu items" do
 
+    # it's a bit of an overkill, don't test that it has menu
+    # because if it doesn't, other tests will fail
     it "should have a menu" do
       expect(takeaway).to have_menu
     end
@@ -28,6 +30,8 @@ describe Takeaway do
 
   end
 
+  # Well done for implementing fairly complex functionality
+  # even though it wasn't required
   context "Has a basket" do
 
     it "which can be empty" do
@@ -40,7 +44,7 @@ describe Takeaway do
     end
 
     it "which can store more than one item" do
-      basket_two_Sherberts
+      basket_two_sherberts
       expect(takeaway.basket.count).to eq(2)
     end
 
@@ -54,12 +58,12 @@ describe Takeaway do
 
 
     it "which can provide an order total of its items" do
-      basket_two_Sherberts
+      basket_two_sherberts
       expect(takeaway.order_total).to eq(5)
     end
 
     it "should calculate the quantities of each item in your basket" do
-      basket_two_Sherberts
+      basket_two_sherberts
       expect(takeaway.view_order.first).to include "Rhubarb Sherbert", 2 
     end
 
@@ -68,7 +72,7 @@ describe Takeaway do
   context "Placing an order" do
 
     it "should raise an error if the order total and customer's payment don't match" do
-      basket_two_Sherberts
+      basket_two_sherberts
       takeaway.add_to_basket("Rhubarb and Vanilla Custard Panna Cotta")
       expect(lambda {takeaway.place_order(5)}).to raise_error "Sorry, there seems to be a problem with your order calculations" 
     end
@@ -86,7 +90,7 @@ describe Takeaway do
 
     it "should send a text to tell the customer the order is on the way" do
       takeaway.stub(:send_text) 
-      basket_two_Sherberts
+      basket_two_sherberts
       takeaway.should_receive(:send_text).once
       takeaway.place_order(5)
     end
