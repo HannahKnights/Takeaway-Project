@@ -50,6 +50,11 @@ MENU = [
     @basket.delete_if {|dessert| dessert[:name] == dish.to_s}
   end
 
+  # def remove_from_basket(dish)
+  #   request = MENU.detect{|item| item[:name] == dish.to_s}
+  #   @basket.delete_if {|item| item == request}
+  # end
+
 
   def order_total
     @total_price = @basket.map {|dish| dish[:price]}.reduce(:+)

@@ -10,38 +10,40 @@
     <div class="menu">
     <table>
     <% @menu.each do |dish| %>
-      <!-- <tr> -->
         <td>
           <%= dish %>
         </td>
-      <!-- </tr> -->
     <% end %>
     </table>
     </div>
-
     <div id="basketform">
     <form action="/" method="post">
       <table>
       <% @takeaway_d.each do |item| %>
         <tr>
           <td>
-            <input type="checkbox" name="dish" value="<%= item[:name] %>">
-            <%= item[:name] %>
-            <input type="submit" value"submit" >
+            <p><input type="submit" name="dish" value="<%= item[:name] %>" method="post"> 
+            << click to add to basket</p>
+            <!-- <button type="submit" value"submit" method="post">
+            <button type="submit" value"submit" method="delete"> -->
           </td>
         </tr>
       <% end %>
       </table>
     </form>
-    </div>
+    </div>  
     Basket
+    <form action='/' method="post">
+    <input type="hidden" name="_method" value="DELETE">
     <ul>
     <% @takeaway.basket.each do |item| %>
-    <li><%= item[:name] %></li>
+    <li>
+    <input type="submit" name="dish" value="<%= item[:name] %>">
+    </li>
     <% end %>
     </ul>
+    <p><%= @takeaway.order_total %></p>
+    </form>
     </div>
-  
   </body>
-
 </html>
