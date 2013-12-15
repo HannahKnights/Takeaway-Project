@@ -1,49 +1,59 @@
 <html>
-<head>
-<link href="/stylesheets/application.css" rel="stylesheet" type="text/css">
-</head>
+  
+  <head>
+    <link href="/stylesheets/application.css" rel="stylesheet" type="text/css">
+  </head>
 
-    <body>
+  <body>
 
     <div class="header">R-h-u-b~a~r-b</div>
 
     <div class="menu">
-    <table>
-    <% @menu.each do |dish| %>
-        <td>
-          <%= dish %>
-        </td>
-    <% end %>
-    </table>
-    </div>
-    <div id="basketform">
-    <form action="/" method="post">
       <table>
-      <% @takeaway_d.each do |item| %>
-        <tr>
+      <% @menu.each do |dish| %>
           <td>
-            <p><input type="submit" name="dish" value="<%= item[:name] %>" method="post"> 
-            << click to add to basket</p>
-            <!-- <button type="submit" value"submit" method="post">
-            <button type="submit" value"submit" method="delete"> -->
+            <%= dish %>
           </td>
-        </tr>
       <% end %>
       </table>
-    </form>
-    </div>  
-    Basket
-    <form action='/' method="post">
-    <input type="hidden" name="_method" value="DELETE">
-    <ul>
-    <% @takeaway.basket.each do |item| %>
-    <li>
-    <input type="submit" name="dish" value="<%= item[:name] %>">
-    </li>
-    <% end %>
-    </ul>
-    <p><%= @takeaway.order_total %></p>
-    </form>
     </div>
+      
+    <div id="basketform">
+      <form action="/" method="post">
+        <table>
+          <% @takeaway_d.each do |item| %>
+            <tr>
+              <td>
+                <p>
+                  <input type="submit" name="dish" value="<%= item[:name] %>" method="post"> 
+                  << click to add to basket
+                </p>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </form>
+    </div>  
+    
+    <%= @notice %>
+
+  <h2>Basket</h2>
+      
+    <form action='/' method="post">
+      <input type="hidden" name="_method" value="DELETE">
+        <ul>
+        <% hello %>
+          <% @takeaway.basket.each do |item| %>
+            <li>
+              <input type="submit" name="dish" value="<%= item[:name] %>">
+            </li>
+          <% end %>
+        </ul>
+      <p><%= @takeaway.order_total %></p>
+    </form>
+
+    <a href='/checkout'   
+  
   </body>
+
 </html>
