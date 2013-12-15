@@ -1,33 +1,33 @@
 <html>
-<head>
-</head>
-<body>
+  
+  <head>
+  </head>
 
-<div id ="basket">
-<table>
-<% @takeaway.view_order.each do |item| %>
-<tr>
-<td>
-<p> <%= item[0] %> -------> Quantity: <%= item[1] %> </p>
-</td>
-</tr>
-<% end %>
-</table>
-<p> Total: £<%= @takeaway.order_total %> </p>
-</div>
+  <body>
 
+    <div id ="basket">
+      <table>
+        <% @takeaway.view_order.each do |item| %>
+          <tr>
+            <td>
+              <p> <%= item[0] %> -------> Quantity: <%= item[1] %> </p>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <p> Total: £<%= @takeaway.order_total %> </p>
+    </div>
 
-<div id="order">
+    <div id="order">
       <form action="/payment" method="post">
-      <label for="amount"> Payment amount: </label>
-      <input type="text" name="amount">
-                  <input type="submit" value="submit"> 
+        <label for="amount"> Payment amount: </label>
+        <input type="text" name="amount">
+        <input type="submit" value="submit"> 
       </form>
-    </div>  
+    </div>
 
+    <a href='/'>Back</a>  
 
+  </body>
 
-
-
-</body>
 </html>
