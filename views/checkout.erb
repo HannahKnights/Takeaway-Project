@@ -1,0 +1,33 @@
+<html>
+<head>
+</head>
+<body>
+
+<div id ="basket">
+<table>
+<% @takeaway.view_order.each do |item| %>
+<tr>
+<td>
+<p> <%= item[0] %> -------> Quantity: <%= item[1] %> </p>
+</td>
+</tr>
+<% end %>
+</table>
+<p> Total: £<%= @takeaway.order_total %> </p>
+</div>
+
+
+<div id="order">
+      <form action="/payment" method="post">
+      <label for="amount"> Payment amount: </label>
+      <input type="text" name="amount">
+                  <input type="submit" value="submit"> 
+      </form>
+    </div>  
+
+
+
+
+
+</body>
+</html>

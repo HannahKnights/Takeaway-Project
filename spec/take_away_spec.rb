@@ -48,6 +48,13 @@ describe Takeaway do
       expect(takeaway.basket.count).to eq(1)
     end
 
+    it "will not remove more than one of the same item" do
+      basket_two_sherberts
+      expect(takeaway.basket.count).to eq(2)
+      takeaway.remove_from_basket("Rhubarb Sherbert")
+      expect(takeaway.basket.count).to eq(1)
+    end
+
 
     it "which can provide an order total of its items" do
       basket_two_sherberts

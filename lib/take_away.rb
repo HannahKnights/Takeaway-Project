@@ -7,9 +7,9 @@ class Takeaway
 MENU = [
     {:name => "Apple, Rhubarb and Marshmallow Crumble", :price => 4},
     {:name => "Rhubarb and White Chocolate Mille-feuille", :price => 5},
-    {:name => "Rhubarb and Vanilla Custard Panna Cotta", :price => 4.5},
+    {:name => "Rhubarb and Vanilla Custard Panna Cotta", :price => 4.50},
     {:name => "Ginger poached Rhubarb with Thyme Yoghurt", :price => 3},
-    {:name => "Rhubarb Sherbert", :price => 2.5}
+    {:name => "Rhubarb Sherbert", :price => 2.50}
   ]
 
   def menu
@@ -28,7 +28,7 @@ MENU = [
   def dishes
     menu_items = []
     MENU.each_with_index do |item, index|
-     menu_items << "#{index+1}: #{item[:name]}...............£#{item[:price]}"
+     menu_items << "#{index+1}: #{item[:name]}...............£#{sprintf '%.2f' % item[:price]}"
    end
    menu_items
   end
@@ -45,16 +45,11 @@ MENU = [
     @basket << item if item
   end
 
-
   def remove_from_basket(dish)
-    @basket.delete_if {|dessert| dessert[:name] == dish.to_s}
+    first_instance = @basket.index {|item| item[:name] == dish.to_s}
+    @basket.delete_at(first_instance)
+    @basket
   end
-
-  # def remove_from_basket(dish)
-  #   request = MENU.detect{|item| item[:name] == dish.to_s}
-  #   @basket.delete_if {|item| item == request}
-  # end
-
 
   def order_total
     @total_price = @basket.map {|dish| dish[:price]}.reduce(:+)
@@ -96,7 +91,7 @@ MENU = [
 
 
   def place_order(payment)
-    order_total != payment ? order_error : send_text
+    order_total != payment.to_f ? order_error : send_text
   end
 
 
