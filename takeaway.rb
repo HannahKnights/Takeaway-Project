@@ -1,6 +1,8 @@
 require 'sinatra'
 require_relative './lib/take_away'
 
+set :session_secret, "Rhu-bar-bb-rab-uhR"
+
 enable :sessions
 
 before do
@@ -80,6 +82,13 @@ end
 
 helpers do
 
+def colour_purchase 
+  if @notice == "Sorry the value you placed was incorect, please try again"
+    'fail'
+  else
+    'win'
+  end
+end
 
 end
 
