@@ -1,1 +1,1 @@
-web: bundle exec ruby takeaway.ru -p $PORT
+web: bundle exec ruby takeaway.rb -p $PORT
