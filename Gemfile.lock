@@ -5,6 +5,7 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     multi_json (1.8.2)
+    newrelic_rpm (3.7.0.177)
     rack (1.5.2)
     rack-protection (1.5.1)
       rack
@@ -24,6 +25,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  newrelic_rpm
   shotgun
   sinatra
   twilio-ruby

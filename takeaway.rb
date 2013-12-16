@@ -5,6 +5,11 @@ set :session_secret, "Rhu-bar-bb-rab-uhR"
 
 enable :sessions
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
+
 before do
   session[:basket] = session[:basket] || []
   @takeaway ||= Takeaway.new(session[:basket])

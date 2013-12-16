@@ -83,7 +83,7 @@ MENU = [
     #   :to => ENV['MY_PHONE_NUMBER'],
     #   :from => "+441772367550",)
     # message.to
-    puts"hi"
+    puts "Simulated Twilio message"
   end
 
   def order_error
