@@ -25,7 +25,7 @@ def order_process(amount)
 end
 
 def place_that_order(amount)
-  @notice = "y"
+  # @notice = "y"
   @takeaway.place_order(amount)
   session[:basket] = []
   session[:notice] = "Thank you for your Rhu-bar-b order"
