@@ -1,3 +1,4 @@
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -42,7 +43,6 @@ table {
     border-spacing: 0;
 }
 
-
 .menu {
     font-size: 24px;
     font-family: Helvetica;
@@ -68,6 +68,7 @@ table {
     background-color: white;
     border-style: solid;
     border-color: black;
+
 }
 
 .fail {
